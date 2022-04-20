@@ -44,7 +44,7 @@ steps:
     timeoutInSeconds: 400
     command: |
       cd ${OCI_PRIMARY_SOURCE_DIR}/terraform
-      for cname in `cat compartments.config|sort -u -k 1|cut -d = -f 1`
+      for cname in `cat compartment_scope/compartments.config|sort -u -k 1|cut -d = -f 1`
       do
       echo "Acting on Compartment - ${cname}.."
       mkdir ${cname}
