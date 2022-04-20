@@ -24,13 +24,7 @@ steps:
       yum install -y yum-utils
       yum-config-manager --add-repo https://rpm.releases.hashicorp.com/RHEL/hashicorp.repo
       yum -y install terraform
-     
-     
-  # - type: Command
-  #   name: "OCI Terraform S3 backend setup"
-  #   timeoutInSeconds: 40
-  #   command: |
-  #     cd ${OCI_PRIMARY_SOURCE_DIR}
+
 
   - type: Command
     name: "TENANCY - Terraform actions"
@@ -44,3 +38,21 @@ steps:
       terraform init -migrate-state
       terraform plan -out plan.out
       terraform apply plan.out
+
+  - type: Command
+    name: "COMPARTMENT - Terraform actions"
+    timeoutInSeconds: 400
+    command: |
+      cd ${OCI_PRIMARY_SOURCE_DIR}/terraform/compartment_scope
+      echo "[default]" > cred_store
+      echo "aws_access_key_id=${aws_access_key_id}">>cred_store
+      echo "aws_secret_access_key=${aws_secret_access_key}">>cred_store
+      for cname in `cat compartments.config|sort -u|cut -d = -f 1`
+      do
+      echo "Acting on Compartment - ${cname}.."
+      mkdir ${cname}
+      cp -r * ${cname}/
+      cd ${cname}
+      export compartment_name=${cname}
+      cat remote-backend.tf|envsubst
+      done
