@@ -39,7 +39,7 @@ steps:
     name: "TENANCY - Terraform actions"
     timeoutInSeconds: 400
     command: |
-      cd ${OCI_PRIMARY_SOURCE_DIR}/tenancy_scope
+      cd ${OCI_PRIMARY_SOURCE_DIR}/terraform/tenancy_scope
       terraform version
       terraform init -migrate-state
       terraform plan -out plan.out
