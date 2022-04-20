@@ -54,7 +54,7 @@ steps:
       cp -r * ${cname}/
       cd ${cname}
       export compartment_name=${cname}
-      cat remote-backend.tf|envsubst > remote-backend.tf
+      cat remote-backend_template.tf|envsubst > remote-backend.tf
       export export TF_VAR_compartment_ocid=`cat compartments.config|grep ${cname}|cut -f 2 -d '='`
       terraform version
       terraform init -migrate-state
