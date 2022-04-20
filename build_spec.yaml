@@ -43,10 +43,7 @@ steps:
     command: |
       cd ${OCI_PRIMARY_SOURCE_DIR}
       terraform version
-      mkdir ${reference_for_tenancy}
       cd ${reference_for_tenancy}
-      cp -r ../* .
-      rm -r ${reference_for_compartment}
       terraform init -migrate-state
       terraform plan -out plan.out
       terraform apply plan.out
