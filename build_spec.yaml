@@ -42,5 +42,6 @@ steps:
       cd ${OCI_PRIMARY_SOURCE_DIR}
       terraform version
       terraform init -migrate-state
-      terraform plan 
+      terraform plan -out plan.out
+      terraform apply plan.out
   # terraform apply -auto-approve  
