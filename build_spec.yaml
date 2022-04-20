@@ -19,7 +19,7 @@ env:
 steps:
   - type: Command
     name: "Install Terraform"
-    timeoutInSeconds: 40
+    timeoutInSeconds: 400
     command: |
       yum install -y yum-utils
       yum-config-manager --add-repo https://rpm.releases.hashicorp.com/RHEL/hashicorp.repo
@@ -37,7 +37,7 @@ steps:
       
   - type: Command
     name: "Terraform actions"
-    timeoutInSeconds: 40
+    timeoutInSeconds: 400
     command: |
       cd ${OCI_PRIMARY_SOURCE_DIR}
       terraform version
