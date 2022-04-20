@@ -41,6 +41,8 @@ steps:
       echo "[default]" > cred_store
       echo "aws_access_key_id=${aws_access_key_id}">>cred_store
       echo "aws_secret_access_key=${aws_secret_access_key}">>cred_store
+      cat remote-backend_template.tf|envsubst > remote-backend.tf
+      rm remote-backend_template.tf
       export TF_VAR_compartment_name=${cname}
       export TF_VAR_compartment_ocid=`cat ${OCI_PRIMARY_SOURCE_DIR}/compartments.config|grep ${cname}|cut -f 2 -d '='`
       terraform version
