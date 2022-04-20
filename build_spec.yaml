@@ -47,12 +47,17 @@ steps:
       echo "[default]" > cred_store
       echo "aws_access_key_id=${aws_access_key_id}">>cred_store
       echo "aws_secret_access_key=${aws_secret_access_key}">>cred_store
-      for cname in `cat compartments.config|sort -u|cut -d = -f 1`
+      for cname in `cat compartments.config|sort -u -k 1|cut -d = -f 1`
       do
       echo "Acting on Compartment - ${cname}.."
       mkdir ${cname}
       cp -r * ${cname}/
       cd ${cname}
       export compartment_name=${cname}
-      cat remote-backend.tf|envsubst
+      cat remote-backend.tf|envsubst > remote-backend.tf
+      export export TF_VAR_compartment_ocid=`cat compartments.config|grep ${cname}|cut -f 2 -d '='`
+      terraform version
+      terraform init -migrate-state
+      terraform plan -out plan.out
+      terraform apply plan.out
       done
