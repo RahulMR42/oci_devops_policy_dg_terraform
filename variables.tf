@@ -8,3 +8,8 @@ variable compartment_ocid{
     type     = string
     default  = "ocid1.compartment.oc1..aaaaaaaagaqwgvp64baxtnfhdkeu45vdqpiuo2pqlxpeqzjf2mwh522zi53q"
 }
+
+variable region{
+    type = string
+    default = "us-ashburn-1"
+}
