@@ -43,17 +43,17 @@ steps:
     name: "COMPARTMENT - Terraform actions"
     timeoutInSeconds: 400
     command: |
-      cd ${OCI_PRIMARY_SOURCE_DIR}/terraform/compartment_scope
-      echo "[default]" > cred_store
-      echo "aws_access_key_id=${aws_access_key_id}">>cred_store
-      echo "aws_secret_access_key=${aws_secret_access_key}">>cred_store
+      cd ${OCI_PRIMARY_SOURCE_DIR}/terraform
       for cname in `cat compartments.config|sort -u -k 1|cut -d = -f 1`
       do
       echo "Acting on Compartment - ${cname}.."
       mkdir ${cname}
-      cp -r * !(${cname}) ${cname}/
+      cp -r compartment_scope/* ${cname}/
       cd ${cname}
       export compartment_name=${cname}
+      echo "[default]" > cred_store
+      echo "aws_access_key_id=${aws_access_key_id}">>cred_store
+      echo "aws_secret_access_key=${aws_secret_access_key}">>cred_store
       cat remote-backend_template.tf|envsubst > remote-backend.tf
       rm remote-backend_template.tf
       export export TF_VAR_compartment_ocid=`cat compartments.config|grep ${cname}|cut -f 2 -d '='`
