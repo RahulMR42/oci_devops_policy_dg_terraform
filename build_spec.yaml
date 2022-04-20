@@ -51,10 +51,11 @@ steps:
       do
       echo "Acting on Compartment - ${cname}.."
       mkdir ${cname}
-      cp -r * ${cname}/
+      cp -r * !(${cname}) ${cname}/
       cd ${cname}
       export compartment_name=${cname}
       cat remote-backend_template.tf|envsubst > remote-backend.tf
+      rm remote-backend_template.tf
       export export TF_VAR_compartment_ocid=`cat compartments.config|grep ${cname}|cut -f 2 -d '='`
       terraform version
       terraform init -migrate-state
