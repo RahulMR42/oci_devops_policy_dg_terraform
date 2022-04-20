@@ -7,8 +7,6 @@ env:
   # these are local variables to the build config
   variables:
     region: "us-ashburn-1" # Set your OCI Region.
-    reference_for_tenancy: "tenancy_scope"
-    reference_for_compartment: "compartment_scope"
 
   # the value of a vaultVariable is the secret-id (in OCI ID format) stored in the OCI Vault service
   # you can then access the value of that secret in your build_spec.yaml commands
@@ -41,9 +39,8 @@ steps:
     name: "TENANCY - Terraform actions"
     timeoutInSeconds: 400
     command: |
-      cd ${OCI_PRIMARY_SOURCE_DIR}
+      cd ${OCI_PRIMARY_SOURCE_DIR}/tenancy_scope
       terraform version
-      cd ${reference_for_tenancy}
       terraform init -migrate-state
       terraform plan -out plan.out
       terraform apply plan.out
