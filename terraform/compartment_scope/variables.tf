@@ -9,6 +9,11 @@ variable compartment_ocid{
     default  = ""
 }
 
+variable compartment_name {
+    type = string
+    default = ""
+}
+
 variable region{
     type = string
     default = "us-ashburn-1"

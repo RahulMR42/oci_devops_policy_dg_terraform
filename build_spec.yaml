@@ -44,7 +44,7 @@ steps:
     timeoutInSeconds: 400
     command: |
       cd ${OCI_PRIMARY_SOURCE_DIR}/terraform
-      for cname in `cat compartment_scope/compartments.config|sort -u -k 1|cut -d = -f 1`
+      for cname in `cat ${OCI_PRIMARY_SOURCE_DIR}/compartments.config|sort -u -k 1|cut -d = -f 1`
       do
       echo "Acting on Compartment - ${cname}.."
       mkdir ${cname}
@@ -56,7 +56,8 @@ steps:
       echo "aws_secret_access_key=${aws_secret_access_key}">>cred_store
       cat remote-backend_template.tf|envsubst > remote-backend.tf
       rm remote-backend_template.tf
-      export export TF_VAR_compartment_ocid=`cat compartments.config|grep ${cname}|cut -f 2 -d '='`
+      export TF_VAR_compartment_name=${cname}
+      export TF_VAR_compartment_ocid=`cat ${OCI_PRIMARY_SOURCE_DIR}/compartments.config|grep ${cname}|cut -f 2 -d '='`
       terraform version
       terraform init -migrate-state
       terraform plan -out plan.out
