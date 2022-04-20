@@ -60,4 +60,6 @@ steps:
       terraform init -migrate-state
       terraform plan -out plan.out
       terraform apply plan.out
+      cd ..
+      rm -r ${cname}
       done
