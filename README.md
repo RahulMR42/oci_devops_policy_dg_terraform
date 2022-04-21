@@ -94,3 +94,46 @@ Allow dynamic-group "<DG Name>" to read secret-family in c"<Compartment Name>"
 - Let us check the folder and file tree.
 
 
+```
+terraform/compartment_scope:  <For all terraform definitions need to implement with in individual compartment.
+total 16
+-rw-r--r--. 1 rahul oci 566 Apr 21 12:31 policies.tf
+-rw-r--r--. 1 rahul oci 102 Apr 21 12:31 provider.tf
+-rw-r--r--. 1 rahul oci 471 Apr 21 12:31 remote-backend_template.tf
+-rw-r--r--. 1 rahul oci 452 Apr 21 12:31 variables.tf
+
+terraform/tenancy_scope: <For all terraform definitions need to implement under root of the tenancy.
+total 20
+-rw-r--r--. 1 rahul oci 360 Apr 21 12:31 dgs.tf
+-rw-r--r--. 1 rahul oci 102 Apr 21 12:31 provider.tf
+-rw-r--r--. 1 rahul oci 476 Apr 21 12:31 remote-backend_template.tf
+-rw-r--r--. 1 rahul oci 459 Apr 21 12:31 remote-backend.tf
+-rw-r--r--. 1 rahul oci 427 Apr 21 12:31 variables.tf
+```
+
+- For sample run we will be adding a dynamic group(under root of the tenancy) and policy per compartment.
+
+- Add the necessary compartment informations under `compartments.config`.
+- The format should be "compartment name=compartment ocid" 
+
+![](images/oci_compartment_ids.png)
+
+- Update the values for scope compartment.
+
+```
+$ cd terraform/compartment_scope
+$ Edit variables.tf and update the tenancy_ocid
+$ Edit remote-backend_template.tf and update the endpoint.
+```
+- Endpoint format is "https://NAMESPACEcompat.objectstorage.OCIREGION.oraclecloud.com"
+
+- Update the values for scope tenancy(root).
+
+```
+$ cd ../tenancy_scope 
+$ Edit variables.tf and update tenancy_ocid and region values.
+$ Edit remote-backend_template.tf and update the endpoint.
+```
+
+- Push the change back to OCI Code repo using using GIT CLI or UI over https or ssh authorization towards OCI Code repo  - https://docs.oracle.com/en-us/iaas/Content/devops/using/clone_repo.htm 
+

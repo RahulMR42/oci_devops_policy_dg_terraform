@@ -1,7 +1,7 @@
 
 variable compartment_ocid{
     type     = string
-    default  = "ocid1.compartment.oc1..aaaaaaaagaqwgvp64baxtnfhdkeu45vdqpiuo2pqlxpeqzjf2mwh522zi53q"
+    default  = ""
 }
 
 variable compartment_name {
