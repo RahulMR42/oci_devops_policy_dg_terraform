@@ -137,3 +137,23 @@ $ Edit remote-backend_template.tf and update the endpoint.
 
 - Push the change back to OCI Code repo using using GIT CLI or UI over https or ssh authorization towards OCI Code repo  - https://docs.oracle.com/en-us/iaas/Content/devops/using/clone_repo.htm 
 
+
+![](images/oci_coderepo.png)
+
+- Let us do a build manual invokation.
+
+![](images/oci_build_run_1.png)
+
+- Wait for the completion of the build run .
+
+![](images/oci_build_run_2.png)
+
+- Re verify the implementation of tenancy level . Switch to dynamic groups and we should see two group with a compartment name post fixed.
+
+
+![](images/oci_dg.png)
+
+- Switch to policies and switch the different compartment mentioned and validate the policies.
+
+
+
