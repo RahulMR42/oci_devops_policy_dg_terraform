@@ -1,5 +1,4 @@
 resource "oci_identity_policy" "devopspolicy" {
-  provider       = oci.home_region
   name           = "${var.compartment_name}_devopspolicies"
   description    = "policy created for devops"
   compartment_id = var.compartment_ocid
